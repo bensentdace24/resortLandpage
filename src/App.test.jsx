@@ -20,4 +20,11 @@ describe('Samal Sands landing page', () => {
     fireEvent.click(button);
     expect(button.getAttribute('aria-expanded')).toBe('true');
   });
+
+  it('uses the resort photo library instead of third-party stay imagery', () => {
+    const { container } = render(<App />);
+    const sources = [...container.querySelectorAll('.stay-card img')].map(image => image.getAttribute('src'));
+    expect(sources).toEqual(['/images/housing.jpg', '/images/cottage.jpg', '/images/sea.jpg']);
+    expect(screen.getByText('Samal Sands & Shores')).toBeTruthy();
+  });
 });

@@ -3,9 +3,9 @@ import { ArrowDown, ArrowRight, CalendarDays, Check, ChevronDown, Clock3, MapPin
 import { calculateEstimate, roomOptions } from './booking';
 
 const stays = [
-  { name: 'Standard room', detail: 'A breezy base for two', price: 'From ₱3,500', image: 'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=1200&q=85' },
-  { name: 'Garden room', detail: 'Easygoing stays for four', price: 'From ₱4,000', image: 'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=1200&q=85' },
-  { name: 'Two-bedroom villa', detail: 'Room for the whole barkada', price: 'From ₱6,000', image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=85' },
+  { name: 'Standard room', detail: 'A breezy base for two', price: 'From ₱3,500', image: 'images/housing.jpg', position: '58% center' },
+  { name: 'Garden room', detail: 'Easygoing stays for four', price: 'From ₱4,000', image: 'images/cottage.jpg', position: 'center center' },
+  { name: 'Two-bedroom villa', detail: 'Room for the whole barkada', price: 'From ₱6,000', image: 'images/sea.jpg', position: '58% center' },
 ];
 
 const moments = [
@@ -20,6 +20,7 @@ const notes = [
 ];
 
 function App() {
+  const asset = (name) => `${import.meta.env.BASE_URL}images/${name}`;
   const [menuOpen, setMenuOpen] = useState(false);
   const [form, setForm] = useState({ checkIn: '', checkOut: '', guests: 2, room: 'standard' });
   const [estimate, setEstimate] = useState(null);
@@ -64,11 +65,11 @@ function App() {
             </div>
           </div>
           <div className="hero-visual" aria-label="Tropical beachfront escape">
-            <div className="hero-photo" />
+            <div className="hero-photo" style={{ backgroundImage: `url('${asset('1.jpg')}')` }} />
             <div className="sun-disc" />
             <div className="floating-note note-top"><MapPin size={17} /><span><b>Caliclic, Babak</b>Samal Island</span></div>
             <div className="floating-note note-bottom"><Clock3 size={17} /><span><b>5 min*</b>from the wharf</span></div>
-            <span className="photo-credit">Presentation imagery</span>
+            <span className="photo-credit">Samal Sands & Shores</span>
           </div>
           <div className="hero-proof">
             <span><Check /> Beachfront</span><span><Check /> Infinity pool</span><span><Check /> Restaurant</span><span><Check /> Pet-friendly*</span>
@@ -96,7 +97,7 @@ function App() {
           <div className="stay-track">
             {stays.map((stay, index) => (
               <article className={`stay-card stay-${index + 1}`} key={stay.name}>
-                <img src={stay.image} alt="Tropical resort accommodation inspiration" />
+                <img src={`${import.meta.env.BASE_URL}${stay.image}`} alt={`${stay.name} at Samal Sands and Shores`} style={{ objectPosition: stay.position }} />
                 <div className="stay-overlay"><span>{stay.price}*</span><h3>{stay.name}</h3><p>{stay.detail}</p></div>
               </article>
             ))}
@@ -147,7 +148,7 @@ function App() {
         </section>
 
         <section className="closing">
-          <div className="closing-image" />
+          <div className="closing-image" style={{ backgroundImage: `linear-gradient(rgba(3,44,53,.28), rgba(3,44,53,.68)), url('${asset('pool.jpg')}')` }} />
           <div className="closing-copy"><Sparkles /><h2>The tide is calling.</h2><p>Bring your favorite people. Leave the rush behind.</p><a className="button button-light" href="tel:+639687213567">Ask about your dates <ArrowRight /></a></div>
         </section>
       </main>
